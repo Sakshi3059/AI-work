@@ -1,0 +1,21 @@
+Feature: Login
+
+Flow:
+Open Login page → Enter Username → Enter Password → Click Login → Navigate to Dashboard
+
+Exit Criteria:
+Registered users can successfully log in using valid credentials.
+
+Validation Rules:
+- Username: Required, valid email, max 100 chars
+- Password: Required, 8–20 chars, uppercase, lowercase, number, special character, no spaces
+- Login button enabled only when both fields are valid
+- Remember Me is optional and unchecked by default
+
+Error Messages:
+- Username required
+- Password required
+- Invalid username or password
+
+Out of Scope:
+Forgot Password, Session Timeout, MFA, Accessibility

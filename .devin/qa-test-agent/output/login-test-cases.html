@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Login Test Cases</title>
+
+<style>
+
+body {
+    font-family: Arial;
+    margin:30px;
+}
+
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+
+th {
+    background:#2f74c0;
+    color:white;
+}
+
+td,th {
+    border:1px solid #ddd;
+    padding:8px;
+    vertical-align:top;
+}
+
+input,select {
+    padding:8px;
+    margin-right:10px;
+}
+
+.summary {
+    background:#f5f5f5;
+    padding:15px;
+    margin-bottom:20px;
+}
+
+</style>
+
+<script>
+
+function filterTable(){
+
+let search=document.getElementById("search").value.toLowerCase();
+
+let category=document.getElementById("category").value;
+
+let rows=document.querySelectorAll("#tcTable tbody tr");
+
+rows.forEach(function(row){
+
+let text=row.innerText.toLowerCase();
+
+let cat=row.dataset.category;
+
+let visible=true;
+
+if(search && !text.includes(search))
+    visible=false;
+
+if(category && cat!=category)
+    visible=false;
+
+row.style.display=visible?"":"none";
+
+});
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h1>Login Test Cases</h1>
+
+<div class="summary">
+
+<h2>Total Test Cases : 32</h2>
+
+<ul>
+<li>Boundary Value Analysis : 6</li>
+<li>Default State & Visibility : 8</li>
+<li>Error Scenarios : 9</li>
+<li>Positive Scenarios : 4</li>
+<li>State Change : 5</li>
+</ul>
+
+<input
+id="search"
+type="text"
+placeholder="Search..."
+onkeyup="filterTable()">
+
+<select
+id="category"
+onchange="filterTable()">
+
+<option value="">All Categories</option>
+
+<option value="Boundary Value Analysis">Boundary Value Analysis</option>
+<option value="Default State & Visibility">Default State & Visibility</option>
+<option value="Error Scenarios">Error Scenarios</option>
+<option value="Positive Scenarios">Positive Scenarios</option>
+<option value="State Change">State Change</option>
+
+</select>
+
+</div>
+
+<table id="tcTable">
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Category</th>
+
+<th>Description</th>
+
+<th>Precondition</th>
+
+<th>Steps</th>
+
+<th>Expected</th>
+
+<th>Priority</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Username field is visible when Login page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Username input field is displayed on the Login page when it initially loads.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Username field is visible on the page.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Password field is visible when Login page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Password input field is displayed on the Login page when it initially loads.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Password field is visible on the page.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Login button is visible when Login page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Login button is displayed on the Login page when it initially loads.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Login button is visible on the page.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Remember Me checkbox is visible when Login page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Remember Me checkbox is displayed on the Login page when it initially loads.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Remember Me checkbox is visible on the page.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Login button is disabled when page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Login button is in disabled state when the Login page loads, as both fields are initially empty.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Login button is disabled.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Remember Me checkbox is unchecked when page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Remember Me checkbox is in unchecked state by default when the Login page loads.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Remember Me checkbox is unchecked.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Username field is empty when page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Username field is empty when the Login page loads.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Username field is empty.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Default State & Visibility">
+
+<td>Validate Password field is empty when page loads</td>
+
+<td>Default State & Visibility</td>
+
+<td>Verify that the Password field is empty when the Login page loads.</td>
+
+<td>Application is launched and Login page is accessible.</td>
+
+<td><pre>1. Navigate to Login page.</pre></td>
+
+<td><pre>1. Password field is empty.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="State Change">
+
+<td>Validate Login button is enabled when both fields contain valid data</td>
+
+<td>State Change</td>
+
+<td>Verify that the Login button becomes enabled when both Username and Password fields contain valid data.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Enter a valid password in Password field.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Login button becomes enabled.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="State Change">
+
+<td>Validate Login button remains disabled when only Username is valid</td>
+
+<td>State Change</td>
+
+<td>Verify that the Login button remains disabled when only Username field contains valid data but Password is empty.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Login button remains disabled.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="State Change">
+
+<td>Validate Login button remains disabled when only Password is valid</td>
+
+<td>State Change</td>
+
+<td>Verify that the Login button remains disabled when only Password field contains valid data but Username is empty.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid password in Password field.</pre></td>
+
+<td><pre>1. Password field accepts the input.
+2. Login button remains disabled.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="State Change">
+
+<td>Validate Login button is disabled when Username is invalid</td>
+
+<td>State Change</td>
+
+<td>Verify that the Login button remains disabled when Username field contains invalid data even if Password is valid.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter an invalid email address in Username field.
+2. Enter a valid password in Password field.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Login button remains disabled.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="State Change">
+
+<td>Validate Login button is disabled when Password is invalid</td>
+
+<td>State Change</td>
+
+<td>Verify that the Login button remains disabled when Password field contains invalid data even if Username is valid.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Enter an invalid password in Password field.</pre></td>
+
+<td><pre>1. Both fields accept the input.
+2. Login button remains disabled.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="State Change">
+
+<td>Validate Remember Me checkbox can be checked</td>
+
+<td>State Change</td>
+
+<td>Verify that the Remember Me checkbox can be checked by the user.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Click on Remember Me checkbox.</pre></td>
+
+<td><pre>1. Remember Me checkbox becomes checked.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="State Change">
+
+<td>Validate Remember Me checkbox can be unchecked</td>
+
+<td>State Change</td>
+
+<td>Verify that the Remember Me checkbox can be unchecked after being checked.</td>
+
+<td>Navigate to Login page and check Remember Me checkbox.</td>
+
+<td><pre>1. Click on Remember Me checkbox.</pre></td>
+
+<td><pre>1. Remember Me checkbox becomes unchecked.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="Boundary Value Analysis">
+
+<td>Validate Username accepts 100 characters</td>
+
+<td>Boundary Value Analysis</td>
+
+<td>Verify that Username field accepts the maximum allowed length of 100 characters.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address with exactly 100 characters in Username field.</pre></td>
+
+<td><pre>1. Username field accepts the 100-character input.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="Boundary Value Analysis">
+
+<td>Validate Username rejects 101 characters</td>
+
+<td>Boundary Value Analysis</td>
+
+<td>Verify that Username field rejects input exceeding the maximum allowed length of 100 characters.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address with 101 characters in Username field.</pre></td>
+
+<td><pre>1. Username field does not accept the 101st character or displays a validation error.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="Boundary Value Analysis">
+
+<td>Validate Password accepts 8 characters</td>
+
+<td>Boundary Value Analysis</td>
+
+<td>Verify that Password field accepts the minimum allowed length of 8 characters with all required complexity.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a password with exactly 8 characters including uppercase, lowercase, number, and special character in Password field.</pre></td>
+
+<td><pre>1. Password field accepts the 8-character input.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Boundary Value Analysis">
+
+<td>Validate Password rejects 7 characters</td>
+
+<td>Boundary Value Analysis</td>
+
+<td>Verify that Password field rejects input below the minimum allowed length of 8 characters.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a password with 7 characters in Password field.</pre></td>
+
+<td><pre>1. Password field displays a validation error indicating minimum length requirement.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Boundary Value Analysis">
+
+<td>Validate Password accepts 20 characters</td>
+
+<td>Boundary Value Analysis</td>
+
+<td>Verify that Password field accepts the maximum allowed length of 20 characters with all required complexity.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a password with exactly 20 characters including uppercase, lowercase, number, and special character in Password field.</pre></td>
+
+<td><pre>1. Password field accepts the 20-character input.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="Boundary Value Analysis">
+
+<td>Validate Password rejects 21 characters</td>
+
+<td>Boundary Value Analysis</td>
+
+<td>Verify that Password field rejects input exceeding the maximum allowed length of 20 characters.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a password with 21 characters in Password field.</pre></td>
+
+<td><pre>1. Password field does not accept the 21st character or displays a validation error.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Username is empty</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when attempting to submit with empty Username field.</td>
+
+<td>Navigate to Login page and enter valid password.</td>
+
+<td><pre>1. Leave Username field empty.
+2. Enter a valid password in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field is empty.
+2. Password field accepts the input.
+3. Validation message "Username required" is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Password is empty</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when attempting to submit with empty Password field.</td>
+
+<td>Navigate to Login page and enter valid username.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Leave Password field empty.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field is empty.
+3. Validation message "Password required" is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Username is invalid email format</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when Username field contains an invalid email format.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter an invalid email address (e.g., "invalidemail") in Username field.
+2. Enter a valid password in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating invalid email format is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Password lacks uppercase</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when Password field does not contain an uppercase letter.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Enter a password without uppercase letters in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating uppercase requirement is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Password lacks lowercase</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when Password field does not contain a lowercase letter.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Enter a password without lowercase letters in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating lowercase requirement is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Password lacks number</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when Password field does not contain a number.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Enter a password without numbers in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating number requirement is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Password lacks special character</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when Password field does not contain a special character.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Enter a password without special characters in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating special character requirement is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate validation message is displayed when Password contains spaces</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that a validation message is displayed when Password field contains spaces.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address in Username field.
+2. Enter a password with spaces in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating no spaces allowed is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Error Scenarios">
+
+<td>Validate error message is displayed when credentials are invalid</td>
+
+<td>Error Scenarios</td>
+
+<td>Verify that an error message is displayed when attempting to login with invalid credentials.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address format in Username field.
+2. Enter a valid password format in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Error message "Invalid username or password" is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Positive Scenarios">
+
+<td>Validate user can successfully login with valid credentials</td>
+
+<td>Positive Scenarios</td>
+
+<td>Verify that a registered user can successfully login and navigate to Dashboard with valid credentials.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a registered email address in Username field.
+2. Enter the corresponding valid password in Password field.
+3. Click Login button.</pre></td>
+
+<td><pre>1. Username field accepts the input.
+2. Password field accepts the input.
+3. Dashboard page is displayed.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Positive Scenarios">
+
+<td>Validate Username accepts valid email format</td>
+
+<td>Positive Scenarios</td>
+
+<td>Verify that Username field accepts a valid email address format.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a valid email address (e.g., "user@example.com") in Username field.</pre></td>
+
+<td><pre>1. Username field accepts the valid email format.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Positive Scenarios">
+
+<td>Validate Password accepts all required character types</td>
+
+<td>Positive Scenarios</td>
+
+<td>Verify that Password field accepts a password containing uppercase, lowercase, number, and special character.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Enter a password with uppercase, lowercase, number, and special character in Password field.</pre></td>
+
+<td><pre>1. Password field accepts the input with all required character types.</pre></td>
+
+<td>High</td>
+
+</tr>
+
+<tr data-category="Positive Scenarios">
+
+<td>Validate Remember Me selection is retained during login</td>
+
+<td>Positive Scenarios</td>
+
+<td>Verify that the Remember Me checkbox selection is retained when the user attempts to login.</td>
+
+<td>Navigate to Login page.</td>
+
+<td><pre>1. Check Remember Me checkbox.
+2. Enter a registered email address in Username field.
+3. Enter the corresponding valid password in Password field.
+4. Click Login button.</pre></td>
+
+<td><pre>1. Remember Me checkbox is checked.
+2. Username field accepts the input.
+3. Password field accepts the input.
+4. Login attempt proceeds with Remember Me option selected.</pre></td>
+
+<td>Medium</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</body>
+
+</html>
