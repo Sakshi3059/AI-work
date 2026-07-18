@@ -1,0 +1,820 @@
+This is a great interview topic. Below is the **end-to-end flow** that mirrors what you just set up and what companies typically do.
+
+---
+
+# Jenkins + GitHub Webhook End-to-End Flow
+
+```text
+Developer
+    │
+git add
+git commit
+git push
+    │
+    ▼
+GitHub Repository
+    │
+(Push Event)
+    │
+    ▼
+Webhook
+POST https://jenkins.company.com/github-webhook/
+    │
+    ▼
+Jenkins GitHub Plugin
+    │
+Find matching Pipeline Job
+    │
+Clone Repository
+    │
+Read Jenkinsfile
+    │
+Execute Pipeline Stages
+    │
+Build
+Test
+Deploy
+```
+
+---
+
+# Step 1 - Create GitHub Repository
+
+Example
+
+```text
+AI-work
+```
+
+Repository contains
+
+```text
+AI-work
+│
+├── README.md
+├── .devin
+│     └── qa-test-agent
+│            └── Jenkinsfile
+```
+
+---
+
+# Step 2 - Create Jenkins Pipeline Job
+
+Dashboard
+
+↓
+
+New Item
+
+↓
+
+Pipeline
+
+Example
+
+```text
+first-proj
+```
+
+---
+
+# Step 3 - Configure Pipeline
+
+Definition
+
+```text
+Pipeline script from SCM
+```
+
+Meaning
+
+> Jenkins should download the code from Git and execute the Jenkinsfile from there.
+
+Alternative
+
+```text
+Pipeline Script
+```
+
+Means
+
+You type Groovy directly inside Jenkins.
+
+Companies almost always use
+
+```text
+Pipeline script from SCM
+```
+
+because pipeline code is version controlled.
+
+---
+
+# Step 4 - Select SCM
+
+```text
+Git
+```
+
+Meaning
+
+Source Code Management system.
+
+Jenkins knows how to clone Git repositories.
+
+---
+
+# Step 5 - Repository URL
+
+Example
+
+```text
+https://github.com/Sakshi3059/AI-work.git
+```
+
+Meaning
+
+This is the repository Jenkins clones.
+
+---
+
+# Step 6 - Credentials
+
+Public repo
+
+```text
+None
+```
+
+Private repo
+
+Use
+
+GitHub Username
+
+*
+
+Personal Access Token
+
+Never GitHub password.
+
+---
+
+# Step 7 - Branch Specifier
+
+For normal Pipeline
+
+```text
+*/main
+```
+
+Why
+
+Jenkins needs to know which branch to checkout.
+
+If you put
+
+```text
+**
+```
+
+you got
+
+```text
+Invalid refspec refs/heads/**
+```
+
+because Pipeline jobs support one branch.
+
+For every branch
+
+Use
+
+```text
+Multibranch Pipeline
+```
+
+---
+
+# Step 8 - Script Path
+
+If Jenkinsfile is here
+
+```text
+AI-work
+│
+└── Jenkinsfile
+```
+
+Use
+
+```text
+Jenkinsfile
+```
+
+If file is
+
+```text
+AI-work
+│
+└── .devin
+      └── qa-test-agent
+            └── Jenkinsfile
+```
+
+Use
+
+```text
+.devin/qa-test-agent/Jenkinsfile
+```
+
+Notice
+
+Not Windows path
+
+❌
+
+```text
+C:\Users\...
+```
+
+Only repository-relative path.
+
+---
+
+# Step 9 - Enable Trigger
+
+Tick
+
+```text
+GitHub hook trigger for GITScm polling
+```
+
+Meaning
+
+Whenever GitHub sends webhook
+
+↓
+
+Run this pipeline.
+
+---
+
+# Step 10 - GitHub Webhook
+
+Repository
+
+↓
+
+Settings
+
+↓
+
+Webhooks
+
+↓
+
+Add Webhook
+
+Payload URL
+
+For local
+
+```text
+https://abcd.ngrok-free.app/github-webhook/
+```
+
+Production
+
+```text
+https://jenkins.company.com/github-webhook/
+```
+
+---
+
+# Why "/github-webhook/"?
+
+Normal Jenkins homepage
+
+```text
+https://jenkins.company.com/
+```
+
+Job page
+
+```text
+https://jenkins.company.com/job/MyJob
+```
+
+Webhook endpoint
+
+```text
+https://jenkins.company.com/github-webhook/
+```
+
+This endpoint is created by the GitHub Plugin.
+
+GitHub sends HTTP POST requests here.
+
+---
+
+# Why POST?
+
+GET
+
+```text
+Give me information
+```
+
+POST
+
+```text
+Here is some information
+```
+
+GitHub sends event information.
+
+Example
+
+```json
+{
+ "repository":"AI-work",
+ "branch":"main",
+ "commit":"abc123",
+ "pusher":"sakshi"
+}
+```
+
+---
+
+# Why did we get 302?
+
+GitHub called
+
+```text
+/ github-webhook
+```
+
+Jenkins replied
+
+```text
+Go to
+
+/github-webhook/
+```
+
+302 means
+
+Redirect.
+
+Not failure.
+
+---
+
+# Why 405?
+
+Someone tried
+
+```text
+GET /github-webhook/
+```
+
+Webhook accepts only
+
+```text
+POST
+```
+
+Hence
+
+```text
+405 Method Not Allowed
+```
+
+---
+
+# Why ngrok?
+
+GitHub cannot reach
+
+```text
+localhost
+```
+
+because localhost means
+
+GitHub's computer
+
+not yours.
+
+ngrok creates
+
+```text
+Internet
+
+↓
+
+ngrok
+
+↓
+
+localhost:8080
+```
+
+---
+
+# Real Company
+
+No ngrok.
+
+Jenkins hosted on
+
+```text
+https://jenkins.company.com
+```
+
+GitHub calls directly.
+
+---
+
+# Build Flow
+
+Developer
+
+↓
+
+git add
+
+↓
+
+git commit
+
+↓
+
+git push
+
+↓
+
+GitHub receives commit
+
+↓
+
+GitHub checks Webhooks
+
+↓
+
+Sends POST
+
+↓
+
+Jenkins receives POST
+
+↓
+
+Finds matching job
+
+↓
+
+Git clone
+
+↓
+
+Reads Jenkinsfile
+
+↓
+
+Runs Pipeline
+
+---
+
+# Jenkinsfile
+
+Example
+
+```groovy
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Hello') {
+            steps {
+                echo "Hi"
+            }
+        }
+
+    }
+}
+```
+
+Meaning
+
+Pipeline
+
+↓
+
+One Agent
+
+↓
+
+One Stage
+
+↓
+
+Execute
+
+```groovy
+echo "Hi"
+```
+
+---
+
+# Plugins
+
+## Git Plugin
+
+Purpose
+
+Clone repository.
+
+Interview
+
+Without Git Plugin Jenkins cannot checkout code.
+
+---
+
+## GitHub Plugin
+
+Purpose
+
+Creates
+
+```text
+/github-webhook/
+```
+
+Receives webhook.
+
+Triggers builds.
+
+---
+
+## GitHub Branch Source
+
+Purpose
+
+Used mainly for
+
+Multibranch Pipeline.
+
+Automatically discovers
+
+main
+
+develop
+
+feature
+
+release
+
+branches.
+
+---
+
+## Pipeline Plugin
+
+Purpose
+
+Runs Jenkinsfile.
+
+Without it
+
+No pipeline execution.
+
+---
+
+## Credentials Plugin
+
+Purpose
+
+Stores
+
+PAT
+
+SSH Keys
+
+Passwords
+
+Securely.
+
+Never hardcode credentials.
+
+---
+
+## Credentials Binding Plugin
+
+Purpose
+
+Inject credentials into pipeline.
+
+Example
+
+```groovy
+withCredentials(...)
+```
+
+---
+
+## Git Client Plugin
+
+Actual Git operations.
+
+clone
+
+fetch
+
+checkout
+
+pull
+
+---
+
+# Important Interview Questions
+
+## What is Jenkins?
+
+Automation server.
+
+Used for CI/CD.
+
+---
+
+## What is CI?
+
+Automatically
+
+Build
+
+Test
+
+every commit.
+
+---
+
+## What is CD?
+
+Automatically
+
+Deploy
+
+after successful build.
+
+---
+
+## Difference between Poll SCM and Webhook?
+
+Poll SCM
+
+```text
+Every minute
+
+"Any new code?"
+```
+
+Webhook
+
+```text
+GitHub immediately informs Jenkins.
+```
+
+Webhook is preferred.
+
+---
+
+## Why Jenkinsfile?
+
+Pipeline stored with code.
+
+Version controlled.
+
+Reviewed through pull requests.
+
+---
+
+## Declarative vs Scripted Pipeline
+
+Declarative
+
+```groovy
+pipeline {}
+```
+
+Easy
+
+Structured
+
+Most common.
+
+Scripted
+
+```groovy
+node {}
+```
+
+Full Groovy.
+
+More flexible.
+
+---
+
+## Why use Pipeline from SCM?
+
+Keeps pipeline code in Git.
+
+Every branch can have its own Jenkinsfile.
+
+Version history is preserved.
+
+---
+
+## Why Credentials instead of password?
+
+Passwords are deprecated.
+
+PAT
+
+SSH Keys
+
+are secure.
+
+---
+
+## Why GitHub Webhook?
+
+Instead of waiting,
+
+GitHub immediately informs Jenkins.
+
+Faster.
+
+Less resource usage.
+
+---
+
+## Why Multibranch Pipeline?
+
+Automatically discovers
+
+every branch.
+
+Creates pipeline for each.
+
+Perfect for feature branches.
+
+---
+
+## Explain Payload URL
+
+Example
+
+```text
+https://jenkins.company.com/github-webhook/
+```
+
+Breakdown:
+
+* `https://` → Secure HTTP protocol.
+* `jenkins.company.com` → Hostname (where Jenkins is running).
+* `/github-webhook/` → Endpoint exposed by the Jenkins GitHub plugin to receive webhook events.
+
+---
+
+## What is a Webhook?
+
+A webhook is an **HTTP callback**.
+
+One application sends an HTTP request to another when an event occurs.
+
+Example:
+
+```
+Developer pushes code
+        │
+        ▼
+GitHub
+        │
+HTTP POST
+        ▼
+Jenkins
+        │
+Runs pipeline
+```
+
+---
+
+# A good interview answer
+
+> "I configured a Jenkins Pipeline using 'Pipeline script from SCM'. Jenkins cloned my GitHub repository, located the Jenkinsfile using the configured script path, and executed the pipeline. I integrated GitHub Webhooks by exposing Jenkins through ngrok for local development. GitHub sent HTTP POST requests to `/github-webhook/`, which the Jenkins GitHub plugin received and used to trigger the pipeline automatically. In production, ngrok would be replaced with a stable Jenkins URL such as `https://jenkins.company.com/github-webhook/`. For building every branch automatically, I would use a Multibranch Pipeline instead of a regular Pipeline."
+
+This explanation covers both the practical setup you implemented and the production architecture interviewers typically expect.
