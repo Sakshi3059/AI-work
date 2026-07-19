@@ -26,7 +26,6 @@
 #         path: playwright-report/
 #         retention-days: 30
 
-
 name: Playwright Tests
 
 on:
