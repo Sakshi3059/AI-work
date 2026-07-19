@@ -35,8 +35,9 @@ Do not create additional categories.
 Validate
 
 - Element visibility
-- Label text
-- Placeholder
+- Label text (extracted from screenshots/Figma)
+- Button text (extracted from screenshots/Figma)
+- Placeholder text (extracted from screenshots/Figma)
 - Default value
 - Default selection
 - Disabled state
@@ -358,19 +359,15 @@ Generate every testcase using the following format.
 
 --------------------------------------------------
 
-Feature:
-
-Category:
-
-Test Case Name:
+Name:
 
 Description:
 
-Precondition:
-
 Priority:
 
-Test Steps:
+Category:
+
+Steps:
 
 1.
 

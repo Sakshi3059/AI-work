@@ -26,13 +26,11 @@ def parse_test_cases(file_path):
         tc = {}
 
         patterns = {
-            "Feature": r"Feature:\s*(.*?)\n(?=\w|$)",
-            "Category": r"Category:\s*(.*?)\n(?=\w|$)",
-            "Test Case Name": r"Test Case Name:\s*(.*?)\n(?=\w|$)",
-            "Description": r"Description:\s*(.*?)\n(?=Precondition:)",
-            "Precondition": r"Precondition:\s*(.*?)\n(?=Priority:)",
-            "Priority": r"Priority:\s*(.*?)\n(?=Test Steps:)",
-            "Test Steps": r"Test Steps:\s*(.*?)\n(?=Expected Result:)",
+            "Name": r"Name:\s*(.*?)\n(?=\w|$)",
+            "Description": r"Description:\s*(.*?)\n(?=Priority:)",
+            "Priority": r"Priority:\s*(.*?)\n(?=Category:)",
+            "Category": r"Category:\s*(.*?)\n(?=Steps:)",
+            "Steps": r"Steps:\s*(.*?)\n(?=Expected Result:)",
             "Expected Result": r"Expected Result:\s*(.*)",
         }
 
@@ -111,161 +109,35 @@ def generate_cards(testcases):
     return cards
 
 
-def create_html(testcases):
+def create_csv(testcases):
 
     OUTPUT_DIR.mkdir(exist_ok=True)
 
-    feature = testcases[0]["Feature"].lower().replace(" ", "-")
+    feature = testcases[0]["Name"].lower().replace(" ", "-")
+    
+    outfile = OUTPUT_DIR / f"{feature}-test-cases.csv"
 
-    outfile = OUTPUT_DIR / f"{feature}-test-cases.html"
+    import csv
 
-    categories = sorted(set(tc["Category"] for tc in testcases))
-    priorities = sorted(set(tc["Priority"] for tc in testcases))
+    with open(outfile, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
+        
+        # Write header
+        writer.writerow(["Name", "Description", "Priority", "Category", "Steps", "Expected Result"])
+        
+        # Write test cases with empty rows between them
+        for tc in testcases:
+            writer.writerow([
+                tc["Name"],
+                tc["Description"],
+                tc["Priority"],
+                tc["Category"],
+                tc["Steps"],
+                tc["Expected Result"]
+            ])
+            
 
-    category_options = "".join(
-        f'<option value="{c}">{c}</option>' for c in categories
-    )
-
-    priority_options = "".join(
-        f'<option value="{p}">{p}</option>' for p in priorities
-    )
-
-    html = f"""
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<meta charset="utf-8">
-
-<title>{feature} Test Cases</title>
-
-<style>
-
-body {{
-font-family: Arial;
-margin:40px;
-background:#f4f4f4;
-}}
-
-.card {{
-background:white;
-border-radius:8px;
-padding:20px;
-margin-bottom:20px;
-box-shadow:0 0 6px rgba(0,0,0,.15);
-}}
-
-.header {{
-cursor:pointer;
-}}
-
-.body {{
-display:none;
-margin-top:15px;
-}}
-
-pre {{
-white-space:pre-wrap;
-}}
-
-input,select {{
-padding:8px;
-margin-right:10px;
-margin-bottom:20px;
-}}
-
-</style>
-
-<script>
-
-function toggle(id){{
-var x=document.getElementById(id);
-
-if(x.style.display=="block")
-x.style.display="none";
-
-else
-x.style.display="block";
-}}
-
-function filterCards(){{
-
-let text=document.getElementById("search").value.toLowerCase();
-
-let cat=document.getElementById("category").value;
-
-let pri=document.getElementById("priority").value;
-
-let cards=document.getElementsByClassName("card");
-
-for(let c of cards){{
-
-let show=true;
-
-let title=c.innerText.toLowerCase();
-
-if(text && !title.includes(text))
-show=false;
-
-if(cat && c.dataset.category!=cat)
-show=false;
-
-if(pri && c.dataset.priority!=pri)
-show=false;
-
-c.style.display=show?"block":"none";
-
-}}
-
-}}
-
-</script>
-
-</head>
-
-<body>
-
-<h1>{testcases[0]["Feature"]} Test Cases</h1>
-
-{build_summary(testcases)}
-
-<input
-id="search"
-placeholder="Search..."
-onkeyup="filterCards()">
-
-<select
-id="category"
-onchange="filterCards()">
-
-<option value="">All Categories</option>
-
-{category_options}
-
-</select>
-
-<select
-id="priority"
-onchange="filterCards()">
-
-<option value="">All Priorities</option>
-
-{priority_options}
-
-</select>
-
-{generate_cards(testcases)}
-
-</body>
-
-</html>
-"""
-
-    outfile.write_text(html, encoding="utf-8")
-
-    print(f"HTML Generated : {outfile}")
+    print(f"CSV Generated : {outfile}")
 
     if TEMP_FILE.exists():
         os.remove(TEMP_FILE)
@@ -276,7 +148,7 @@ def main():
 
     testcases = parse_test_cases(TEMP_FILE)
 
-    create_html(testcases)
+    create_csv(testcases)
 
 
 if __name__ == "__main__":

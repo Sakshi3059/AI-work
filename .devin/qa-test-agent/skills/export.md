@@ -29,7 +29,7 @@ Store all reviewed test cases using the standard format.
 
 If Python is available:
 
-Run
+Run automatically without asking for permission:
 
 python exporters/export_csv.py
 
@@ -62,13 +62,13 @@ output/<feature-name>-test-cases.csv
 
 If Python is available:
 
-Run
+Run automatically without asking for permission:
 
 python exporters/export_html.py
 
 Input
 
-temp/generated-test-cases.md
+output/<feature-name>-test-cases.csv
 
 Output
 

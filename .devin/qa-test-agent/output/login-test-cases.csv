@@ -1,0 +1,95 @@
+"Name","Description","Priority","Category","Steps","Expected Result"
+"Validate Username field is visible when Login page loads","Verify that the Username input field is displayed on the Login page when it initially loads.","High","Default State & Visibility","1. Navigate to Login page.","1. Username field is visible on the page.
+2. Username label should be ""Username"".
+3. Username input field should be visible with no default value."
+"Validate Password field is visible when Login page loads","Verify that the Password input field is displayed on the Login page when it initially loads.","High","Default State & Visibility","1. Navigate to Login page.","1. Password field is visible on the page.
+2. Password label should be ""Password"".
+3. Password input field should be visible with no default value."
+"Validate Login button is visible when Login page loads","Verify that the Login button is displayed on the Login page when it initially loads.","High","Default State & Visibility","1. Navigate to Login page.","1. Login button is visible on the page.
+2. Login button text should be ""Login""."
+"Validate Remember Me checkbox is visible when Login page loads","Verify that the Remember Me checkbox is displayed on the Login page when it initially loads.","Medium","Default State & Visibility","1. Navigate to Login page.","1. Remember Me checkbox is visible on the page.
+2. Remember Me label should be ""Remember Me""."
+"Validate Login button is disabled when page loads","Verify that the Login button is in disabled state when the Login page loads, as both fields are initially empty.","High","Default State & Visibility","1. Navigate to Login page.","1. Login button is disabled."
+"Validate Remember Me checkbox is unchecked when page loads","Verify that the Remember Me checkbox is in unchecked state by default when the Login page loads.","Medium","Default State & Visibility","1. Navigate to Login page.","1. Remember Me checkbox is unchecked."
+"Validate Username field is empty when page loads","Verify that the Username field is empty when the Login page loads.","High","Default State & Visibility","1. Navigate to Login page.","1. Username field is empty."
+"Validate Password field is empty when page loads","Verify that the Password field is empty when the Login page loads.","High","Default State & Visibility","1. Navigate to Login page.","1. Password field is empty."
+"Validate Login button is enabled when both fields contain valid data","Verify that the Login button becomes enabled when both Username and Password fields contain valid data.","High","State Change","1. Enter a valid email address in Username field.
+2. Enter a valid password in Password field.","1. Username field accepts the input.
+2. Login button becomes enabled."
+"Validate Login button remains disabled when only Username is valid","Verify that the Login button remains disabled when only Username field contains valid data but Password is empty.","High","State Change","1. Enter a valid email address in Username field.","1. Username field accepts the input.
+2. Login button remains disabled."
+"Validate Login button remains disabled when only Password is valid","Verify that the Login button remains disabled when only Password field contains valid data but Username is empty.","High","State Change","1. Enter a valid password in Password field.","1. Password field accepts the input.
+2. Login button remains disabled."
+"Validate Login button is disabled when Username is invalid","Verify that the Login button remains disabled when Username field contains invalid data even if Password is valid.","High","State Change","1. Enter an invalid email address in Username field.
+2. Enter a valid password in Password field.","1. Username field accepts the input.
+2. Login button remains disabled."
+"Validate Login button is disabled when Password is invalid","Verify that the Login button remains disabled when Password field contains invalid data even if Username is valid.","High","State Change","1. Enter a valid email address in Username field.
+2. Enter an invalid password in Password field.","1. Both fields accept the input.
+2. Login button remains disabled."
+"Validate Remember Me checkbox can be checked","Verify that the Remember Me checkbox can be checked by the user.","Medium","State Change","1. Click on Remember Me checkbox.","1. Remember Me checkbox becomes checked."
+"Validate Remember Me checkbox can be unchecked","Verify that the Remember Me checkbox can be unchecked after being checked.","Medium","State Change","1. Click on Remember Me checkbox.","1. Remember Me checkbox becomes unchecked."
+"Validate Username accepts 100 characters","Verify that Username field accepts the maximum allowed length of 100 characters.","Medium","Boundary Value Analysis","1. Enter a valid email address with exactly 100 characters in Username field.","1. Username field accepts the 100-character input."
+"Validate Username rejects 101 characters","Verify that Username field rejects input exceeding the maximum allowed length of 100 characters.","Medium","Boundary Value Analysis","1. Enter a valid email address with 101 characters in Username field.","1. Username field does not accept the 101st character or displays a validation error."
+"Validate Password accepts 8 characters","Verify that Password field accepts the minimum allowed length of 8 characters with all required complexity.","High","Boundary Value Analysis","1. Enter a password with exactly 8 characters including uppercase, lowercase, number, and special character in Password field.","1. Password field accepts the 8-character input."
+"Validate Password rejects 7 characters","Verify that Password field rejects input below the minimum allowed length of 8 characters.","High","Boundary Value Analysis","1. Enter a password with 7 characters in Password field.","1. Password field displays a validation error indicating minimum length requirement."
+"Validate Password accepts 20 characters","Verify that Password field accepts the maximum allowed length of 20 characters with all required complexity.","Medium","Boundary Value Analysis","1. Enter a password with exactly 20 characters including uppercase, lowercase, number, and special character in Password field.","1. Password field accepts the 20-character input."
+"Validate Password rejects 21 characters","Verify that Password field rejects input exceeding the maximum allowed length of 20 characters.","Medium","Boundary Value Analysis","1. Enter a password with 21 characters in Password field.","1. Password field does not accept the 21st character or displays a validation error."
+"Validate validation message is displayed when Username is empty","Verify that a validation message is displayed when attempting to submit with empty Username field.","High","Error Scenarios","1. Leave Username field empty.
+2. Enter a valid password in Password field.
+3. Click Login button.","1. Username field is empty.
+2. Password field accepts the input.
+3. Validation message ""Username required"" is displayed."
+"Validate validation message is displayed when Password is empty","Verify that a validation message is displayed when attempting to submit with empty Password field.","High","Error Scenarios","1. Enter a valid email address in Username field.
+2. Leave Password field empty.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field is empty.
+3. Validation message ""Password required"" is displayed."
+"Validate validation message is displayed when Username is invalid email format","Verify that a validation message is displayed when Username field contains an invalid email format.","High","Error Scenarios","1. Enter an invalid email address (e.g., ""invalidemail"") in Username field.
+2. Enter a valid password in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating invalid email format is displayed."
+"Validate validation message is displayed when Password lacks uppercase","Verify that a validation message is displayed when Password field does not contain an uppercase letter.","High","Error Scenarios","1. Enter a valid email address in Username field.
+2. Enter a password without uppercase letters in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating uppercase requirement is displayed."
+"Validate validation message is displayed when Password lacks lowercase","Verify that a validation message is displayed when Password field does not contain a lowercase letter.","High","Error Scenarios","1. Enter a valid email address in Username field.
+2. Enter a password without lowercase letters in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating lowercase requirement is displayed."
+"Validate validation message is displayed when Password lacks number","Verify that a validation message is displayed when Password field does not contain a number.","High","Error Scenarios","1. Enter a valid email address in Username field.
+2. Enter a password without numbers in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating number requirement is displayed."
+"Validate validation message is displayed when Password lacks special character","Verify that a validation message is displayed when Password field does not contain a special character.","High","Error Scenarios","1. Enter a valid email address in Username field.
+2. Enter a password without special characters in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating special character requirement is displayed."
+"Validate validation message is displayed when Password contains spaces","Verify that a validation message is displayed when Password field contains spaces.","High","Error Scenarios","1. Enter a valid email address in Username field.
+2. Enter a password with spaces in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Validation message indicating no spaces allowed is displayed."
+"Validate error message is displayed when credentials are invalid","Verify that an error message is displayed when attempting to login with invalid credentials.","High","Error Scenarios","1. Enter a valid email address format in Username field.
+2. Enter a valid password format in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Error message ""Invalid username or password"" is displayed."
+"Validate user can successfully login with valid credentials","Verify that a registered user can successfully login and navigate to Dashboard with valid credentials.","High","Positive Scenarios","1. Enter a registered email address in Username field.
+2. Enter the corresponding valid password in Password field.
+3. Click Login button.","1. Username field accepts the input.
+2. Password field accepts the input.
+3. Dashboard page is displayed."
+"Validate Username accepts valid email format","Verify that Username field accepts a valid email address format.","High","Positive Scenarios","1. Enter a valid email address (e.g., ""user@example.com"") in Username field.","1. Username field accepts the valid email format."
+"Validate Password accepts all required character types","Verify that Password field accepts a password containing uppercase, lowercase, number, and special character.","High","Positive Scenarios","1. Enter a password with uppercase, lowercase, number, and special character in Password field.","1. Password field accepts the input with all required character types."
+"Validate Remember Me selection is retained during login","Verify that the Remember Me checkbox selection is retained when the user attempts to login.","Medium","Positive Scenarios","1. Check Remember Me checkbox.
+2. Enter a registered email address in Username field.
+3. Enter the corresponding valid password in Password field.
+4. Click Login button.","1. Remember Me checkbox is checked.
+2. Username field accepts the input.
+3. Password field accepts the input.
+4. Login attempt proceeds with Remember Me option selected."

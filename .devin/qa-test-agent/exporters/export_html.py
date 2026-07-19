@@ -20,12 +20,15 @@ def generate_html():
         for row in reader:
             rows.append(row)
 
-    total = len(rows)
-
     categories = Counter()
 
+    # Filter out empty rows from CSV
+    rows = [row for row in rows if row.get("Name", "").strip()]
+    
+    total = len(rows)
+    
     for row in rows:
-        categories[row["Test Case Type"]] += 1
+        categories[row["Category"]] += 1
 
     options = ""
 
@@ -63,6 +66,14 @@ td,th {{
     border:1px solid #ddd;
     padding:8px;
     vertical-align:top;
+}}
+
+tbody tr {{
+    border-bottom: 2px solid #000;
+}}
+
+tbody tr:last-child {{
+    border-bottom: none;
 }}
 
 input,select {{
@@ -156,17 +167,15 @@ onchange="filterTable()">
 
 <th>Name</th>
 
-<th>Category</th>
-
 <th>Description</th>
 
-<th>Precondition</th>
+<th>Priority</th>
+
+<th>Category</th>
 
 <th>Steps</th>
 
-<th>Expected</th>
-
-<th>Priority</th>
+<th>Expected Result</th>
 
 </tr>
 
@@ -180,21 +189,19 @@ onchange="filterTable()">
 
         html += f"""
 
-<tr data-category="{row['Test Case Type']}">
+<tr data-category="{row['Category']}">
 
-<td>{row['Test Case Name']}</td>
-
-<td>{row['Test Case Type']}</td>
+<td>{row['Name']}</td>
 
 <td>{row['Description']}</td>
 
-<td>{row['Precondition']}</td>
+<td>{row['Priority']}</td>
 
-<td><pre>{row['Test Steps']}</pre></td>
+<td>{row['Category']}</td>
+
+<td><pre>{row['Steps']}</pre></td>
 
 <td><pre>{row['Expected Result']}</pre></td>
-
-<td>{row['Priority']}</td>
 
 </tr>
 

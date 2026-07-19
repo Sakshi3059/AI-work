@@ -138,9 +138,10 @@ Examples
 
 Extract whenever available
 
-- Label
-- Placeholder
-- Tooltip
+- Label text
+- Button text
+- Placeholder text
+- Tooltip text
 - Default Value
 - Required Indicator
 - Read Only
