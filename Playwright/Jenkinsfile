@@ -9,10 +9,14 @@ pipeline {
             }
         }
 
+        
+
         stage('Install Dependencies') {
-            steps {
-                bat 'npm ci'
-            }
+             steps {
+        dir('Playwright') {
+            bat 'npm ci'
+        }
+    }
         }
 
         stage('Install Browsers') {
