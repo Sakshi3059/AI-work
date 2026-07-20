@@ -2,7 +2,7 @@ name: Daily Playwright Run
 
 on:
   schedule:
-    - cron: '0 10 * * *'   # 3:30 PM IST every day
+    - cron: '5 10 * * *'   # 3:30 PM IST every day
 
 jobs:
   test:
