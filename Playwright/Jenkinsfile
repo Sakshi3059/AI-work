@@ -40,7 +40,7 @@ pipeline {
             emailext(
                 subject: "Playwright Execution : ${currentBuild.currentResult}",
                 mimeType: 'text/html',
-                to: 'sakshi3059@gmail.com',
+                to: 'sakshisharma310122@gmail.com',
                 attachmentsPattern: 'Playwright/playwright-report/**',
                 body: """
                 <h2>Playwright Automation Report</h2>
