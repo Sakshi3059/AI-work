@@ -76,5 +76,5 @@ console.log(fooCat);
 // Update the fur color of bar
 const barCat=cat.catFriends.find(bar=>bar.name==="bar");
 barCat.furColor="balck"; //will create new key value and pair as case-sensitive;
-barCat.furcolor="purple";
+barCat.furcolor = "purple";
 console.log(cat);
