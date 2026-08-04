@@ -39,4 +39,4 @@ function assertObjectsEqual(actual, expected, testName) {
     }
 }
 
-assertObjectsEqual(actual,expected,'verify');
+assertObjectsEqual(actual,expected,'verify JSON STRiNGS');

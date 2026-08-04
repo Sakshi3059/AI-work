@@ -31,3 +31,14 @@ function returnMinors(arr) {
 
 }
 console.log(returnMinors(students));
+
+function withLoops(arr) {
+    var students = [];
+    for (let i in arr) {
+        if (arr[i].age < 20) {
+            students.push(arr[i]);
+        }
+    }
+    return students;
+}
+console.log(withLoops(students));

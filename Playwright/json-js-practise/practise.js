@@ -33,8 +33,7 @@ cat.catFriends.forEach((activity,index)=>{
     console.log(index, " ", activity.activities);
 });
 
-const act=cat.catFriends.flatMap((activity=>activity.activities));
-console.log(act);
+
 
 cat.catFriends.forEach((friends,index)=>{
     console.log(friends.name," ",friends.activities);
@@ -78,3 +77,14 @@ const barCat=cat.catFriends.find(bar=>bar.name==="bar");
 barCat.furColor="balck"; //will create new key value and pair as case-sensitive;
 barCat.furcolor = "purple";
 console.log(cat);
+
+
+const act = cat.catFriends.flatMap((activity => activity.activities));
+ console.log(act);//[
+// 'be grumpy',
+//     'eat bread omblet',
+//     'jogging',
+//     'running',
+//     'sleep',
+//     'pre-sleep naps'
+// ]

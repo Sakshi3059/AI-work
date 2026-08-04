@@ -32,3 +32,26 @@ function transformFirstAndLast(arr) {
 };
 
 console.log(transformFirstAndLast(arr));
+
+
+function withLoops(arr){
+    let newobj = {}
+    for (let i in arr) {
+        console.log(i) /////////with array it returns index and with obj it returns keys
+        newobj = { i: arr[arr.length - 1] };
+    }
+    return newobj;
+}
+
+console.log(withLoops(arr));
+
+let marks={
+    "sakshi":80,
+    "rahul":90
+}
+
+console.log(marks)
+
+for(let keys in marks){
+    console.log(keys)
+}
