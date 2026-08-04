@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Playwright Pipeline') {
+            steps {
+                dir('Playwright') {
+
+                    bat 'npm ci'
+
+                    bat 'npx playwright install'
+
+                    bat 'npx playwright test'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+
+            archiveArtifacts artifacts: 'Playwright/playwright-report/**,Playwright/test-results/**', fingerprint: true
+
+            publishHTML(target: [
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'Playwright/playwright-report',
+                reportFiles: 'index.html',
+                reportName: 'Playwright Report'
+            ])
+
+            emailext(
+                subject: "Playwright Execution : ${currentBuild.currentResult}",
+                mimeType: 'text/html',
+                to: 'sakshisharma310122@gmail.com',
+                attachmentsPattern: 'Playwright/playwright-report/**',
+                body: """
+                <h2>Playwright Automation Report</h2>
+
+                <b>Job:</b> ${env.JOB_NAME}<br>
+                <b>Build:</b> #${env.BUILD_NUMBER}<br>
+                <b>Status:</b> ${currentBuild.currentResult}<br><br>
+
+                <a href="${env.BUILD_URL}Playwright_Report/">Open HTML Report</a><br><br>
+
+                <a href="${env.BUILD_URL}console">Console Log</a>
+                """
+            )
+        }
+    }
+}

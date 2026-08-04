@@ -19,5 +19,4 @@ test('test', async ({ page }) => {
   await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index');
   await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
   await page.getByText('Dashboard Upgrademanda user').click();
-  
 });
